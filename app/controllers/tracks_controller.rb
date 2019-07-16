@@ -1,3 +1,4 @@
+require './app/laster/core/laster.rb'
 class TracksController < ApplicationController
   # GET /tracks/{q=query}
   def search
