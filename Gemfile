@@ -9,8 +9,10 @@ gem 'rails', '~> 6.0.0.rc1'
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
-#Use figaro to improve configuration's security of application
+# Use figaro to improve configuration's security of application
 gem 'figaro', '~> 1.0'
+
+gem 'json'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
