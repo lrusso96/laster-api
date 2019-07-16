@@ -20,6 +20,11 @@ class TracksController < ApplicationController
     json_response(@tracks)
   end
 
+  def similar
+    @tracks = Laster.similar_tracks(params[:artist], params[:track])
+    json_response(@tracks)
+  end
+
   private
 
   def validate_search_params
