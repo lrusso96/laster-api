@@ -1,43 +1,28 @@
 class TracksController < ApplicationController
-  before_action :set_track, only: [:show, :update, :destroy]
-
-  # GET /tracks
-  def index
-    @tracks = Track.all
+  # GET /tracks/{q=query}
+  def search
+    validate_search_params
+    # fake search, return 2 tracks
+    @tracks = Laster.search_tracks(params[:q])
     json_response(@tracks)
   end
 
-  # POST /tracks
-  def create
-    @track = Track.create!(track_params)
-    json_response(@track, :created)
+  # GET /tracks/top
+  def top
+    @tracks = Laster.top_tracks
+    json_response(@tracks)
   end
 
-  # GET /tracks/:id
-  def show
-    json_response(@track)
-  end
-
-  # PUT /tracks/:id
-  def update
-    @track.update(track_params)
-    head :no_content
-  end
-
-  # DELETE /tracks/:id
-  def destroy
-    @track.destroy
-    head :no_content
+  # GET /tracks/latest
+  def latest
+    @tracks = Laster.latest_tracks
+    json_response(@tracks)
   end
 
   private
 
-  def track_params
-    # whitelist params
-    params.permit(:title)
-  end
-
-  def set_track
-    @track = Track.find(params[:id])
+  def validate_search_params
+    # simple validation of search parameters
+    params.require(:q)
   end
 end
