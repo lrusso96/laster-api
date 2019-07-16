@@ -14,8 +14,8 @@ ActiveRecord::Schema.define(version: 2019_07_15_115919) do
 
   create_table "tracks", force: :cascade do |t|
     t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.string "artist"
+    t.string "image"
   end
 
 end

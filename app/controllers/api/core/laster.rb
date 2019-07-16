@@ -11,13 +11,7 @@ class Laster
 
     # parse result and return List<Track>
     res = JSON.parse Net::HTTP.get_response(uri).body
-    tracks = res['results']['trackmatches']['track']
-    ret = []
-    tracks.each do |t|
-      # FIXME: add more fields!
-      ret << Track.new(title: t['name'])
-    end
-    ret
+    parse_search res
   end
 
   def self.top_tracks
@@ -46,5 +40,17 @@ class Laster
     uri.query = URI.encode_www_form(params)
     @res = Net::HTTP.get_response(uri)
     @res.body
+  end
+
+  private_class_method def self.parse_search(res)
+    ret = []
+    return ret if res['error'] # FIXME: return some error code / msg
+
+    tracks = res['results']['trackmatches']['track']
+    tracks.each do |t|
+      # FIXME: add more fields!
+      ret << Track.new(title: t['name'], artist: t['artist'])
+    end
+    ret
   end
 end
