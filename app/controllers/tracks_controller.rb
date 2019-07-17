@@ -1,32 +1,27 @@
 require_relative './api/laster.rb'
 class TracksController < ApplicationController
-  # GET /tracks?track=t{artist=a, limit=l}
+  # GET /tracks?track=t [opt: artist=a, limit=l]
   def search
     validate_search_params
-    # fake search, return 2 tracks
-    args = { track: params[:track], artist: params[:artist],
-             limit: params[:limit] }
-    @tracks = Laster::Tracks.search(args)
-    tracks_response(@tracks)
+    tracks_response Laster::Tracks.search(params[:track],
+                                          artist: params[:artist],
+                                          limit: params[:limit])
   end
 
   # GET /tracks/top
   def top
-    @tracks = Laster::Tracks.top
-    tracks_response(@tracks)
+    tracks_response Laster::Tracks.top
   end
 
   # GET /tracks/latest
   def latest
-    @tracks = Laster::Tracks.latest
-    tracks_response(@tracks)
+    tracks_response Laster::Tracks.latest
   end
 
-  # GET /tracks/similar{artist=a, track=t}
+  # GET /tracks/similar?artist=a&track=t
   def similar
     validate_similar_params
-    @tracks = Laster::Tracks.similar(params[:track], params[:artist])
-    tracks_response(@tracks)
+    tracks_response Laster::Tracks.similar(params[:track], params[:artist])
   end
 
   private

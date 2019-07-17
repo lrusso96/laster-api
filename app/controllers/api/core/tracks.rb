@@ -3,17 +3,18 @@ require 'json'
 require 'json'
 module Laster
   class Tracks
-    def self.search(args)
-      uri = URI('https://ws.audioscrobbler.com/2.0/?')
+    def self.search(track, artist: nil, limit: nil)
       params = { method: 'track.search', api_key: ENV['LASTFM_API_KEY'],
                  format: 'json' }
+      # I don't trust the caller
+      args = { track: track, artist: artist, limit: limit }.compact
       params.reverse_merge!(args)
-      uri.query = URI.encode_www_form(params)
-      # #FIXME: error handling is completely ignored
 
+      uri = URI API_ENDPOINT
+      uri.query = URI.encode_www_form params
+      # #FIXME: error handling is completely ignored
       # parse result and return List<Track>
-      res = JSON.parse Net::HTTP.get_response(uri).body
-      parse_search res
+      parse_search JSON.parse Net::HTTP.get_response(uri).body
     end
 
     def self.top
@@ -35,13 +36,11 @@ module Laster
     end
 
     def self.similar(track, artist)
-      # TODO: parse json
-      uri = URI('https://ws.audioscrobbler.com/2.0/?')
       params = { method: 'track.getsimilar', artist: artist, track: track,
                  api_key: ENV['LASTFM_API_KEY'], format: 'json' }
-      uri.query = URI.encode_www_form(params)
-      res = JSON.parse Net::HTTP.get_response(uri).body
-      parse_similar res
+      uri = URI API_ENDPOINT
+      uri.query = URI.encode_www_form params
+      parse_similar JSON.parse Net::HTTP.get_response(uri).body
     end
 
     private_class_method def self.parse_search(res)
