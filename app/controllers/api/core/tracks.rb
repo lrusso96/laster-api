@@ -4,7 +4,7 @@ require 'net/http'
 require 'json'
 require 'json'
 module Laster
-  # This class interact with Last.fm search Track module
+  # This class interacts with Last.fm Track module
   class Tracks
     # Searches for tracks given a query and possibly an artist
     def self.search(track, artist: nil, limit: nil)

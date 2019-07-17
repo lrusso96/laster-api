@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'json'
 require 'json'
 module Laster
+  # Interacts with Last.fm Artist module
   class Artists
     def self.search(artist)
       uri = URI('https://ws.audioscrobbler.com/2.0/?')

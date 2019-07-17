@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This module catches some common exceptions and returns nice json to users
 module ExceptionHandler
   # provides the more graceful `included` method
   extend ActiveSupport::Concern
