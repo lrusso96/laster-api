@@ -4,6 +4,7 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/lrusso96/laster-api/badge)](https://www.codefactor.io/repository/github/lrusso96/laster-api)
 [![BCH compliance](https://bettercodehub.com/edge/badge/lrusso96/laster-api?branch=master)](https://bettercodehub.com/)
+[![codecov](https://codecov.io/gh/lrusso96/laster-api/branch/master/graph/badge.svg)](https://codecov.io/gh/lrusso96/laster-api)
 
 ## Documentation
 ...
