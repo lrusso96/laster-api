@@ -6,25 +6,25 @@ class TracksController < ApplicationController
     # fake search, return 2 tracks
     args = { track: params[:track], artist: params[:artist],
              limit: params[:limit] }
-    @tracks = Laster.search_tracks(args)
+    @tracks = Laster::Tracks.search(args)
     json_response(@tracks)
   end
 
   # GET /tracks/top
   def top
-    @tracks = Laster.top_tracks
+    @tracks = Laster::Tracks.top
     json_response(@tracks)
   end
 
   # GET /tracks/latest
   def latest
-    @tracks = Laster.latest_tracks
+    @tracks = Laster::Tracks.latest
     json_response(@tracks)
   end
 
   # GET /tracks/similar{artist=a, track=t}
   def similar
-    @tracks = Laster.similar_tracks(params[:artist], params[:track])
+    @tracks = Laster::Tracks.similar(params[:track], params[:artist])
     json_response(@tracks)
   end
 
