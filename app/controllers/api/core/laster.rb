@@ -49,8 +49,8 @@ module Laster
       params = { method: 'track.getsimilar', artist: artist, track: track,
                  api_key: ENV['LASTFM_API_KEY'], format: 'json' }
       uri.query = URI.encode_www_form(params)
-      @res = Net::HTTP.get_response(uri)
-      @res.body
+      res = JSON.parse Net::HTTP.get_response(uri).body
+      parse_similar res
     end
 
     private_class_method def self.parse_search(res)
@@ -61,6 +61,18 @@ module Laster
       tracks.each do |t|
         # FIXME: add more fields!
         ret << Track.new(title: t['name'], artist: t['artist'])
+      end
+      ret
+    end
+
+    private_class_method def self.parse_similar(res)
+      ret = []
+      return ret if res['error'] # FIXME: return some error code / msg
+
+      tracks = res['similartracks']['track']
+      tracks.each do |t|
+        # FIXME: add more fields!
+        ret << Track.new(title: t['name'], artist: t['artist']['name'])
       end
       ret
     end
