@@ -14,6 +14,7 @@ gem 'figaro', '~> 1.0'
 
 gem 'json'
 
+gem 'codecov', require: false, group: :test
 gem 'simplecov', require: false, group: :test
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
