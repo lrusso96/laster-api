@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe 'Laster API', type: :request do
   # initialize test data
   let!(:tracks) { create_list(:track, 10) }
-  let(:valid_attributes) { { q: 'Searched Song' } }
+  let(:valid_attributes) { { track: 'Wonderwall' } }
   let(:invalid_attributes) { { wrong_par: 'Searched Song' } }
 
   # Test suite for GET /tracks/top
@@ -43,17 +43,17 @@ RSpec.describe 'Laster API', type: :request do
     end
   end
 
-  # Test suite for GET /tracks/q=song
+  # Test suite for GET /tracks?track=song&{artist=a}
   describe 'GET search song' do
     # make HTTP get request before each example
     before { get '/tracks', params: valid_attributes }
 
-    context 'when q parameter is present' do
-      it 'returns the result of the search (2 songs now!)' do
+    context 'when track parameter is present' do
+      it 'returns the result of the search' do
         # Note `json` is a custom helper to parse JSON responses
         expect(json).not_to be_empty
-        # remove this line after the implementation of search function!
-        expect(json.size).to eq(2)
+        # assume 5 tracks at least
+        expect(json.size).to be > 5
       end
 
       it 'returns status code 200' do
@@ -61,7 +61,7 @@ RSpec.describe 'Laster API', type: :request do
       end
     end
 
-    context 'when q parameter is NOT present' do
+    context 'when track parameter is NOT present' do
       before { get '/tracks', params: invalid_attributes }
 
       it 'returns status code 400' do
@@ -70,7 +70,7 @@ RSpec.describe 'Laster API', type: :request do
 
       it 'returns a validation failure message' do
         expect(response.body)
-          .to match(/param is missing or the value is empty: q/)
+          .to match(/param is missing or the value is empty: track/)
       end
     end
   end
