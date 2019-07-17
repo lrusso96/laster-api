@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'json'
 require 'json'
 module Laster
+  # This class interact with Last.fm search Track module
   class Tracks
+    # Searches for tracks given a query and possibly an artist
     def self.search(track, artist: nil, limit: nil)
       params = { method: 'track.search', api_key: ENV['LASTFM_API_KEY'],
                  format: 'json' }
@@ -17,6 +21,7 @@ module Laster
       parse_search JSON.parse Net::HTTP.get_response(uri).body
     end
 
+    # Searches for top tracks
     def self.top
       # TODO: implement method
       tracks = []
@@ -26,6 +31,7 @@ module Laster
       tracks
     end
 
+    # Returns the latest tracks inserted
     def self.latest
       # TODO: implement method
       tracks = []
@@ -35,6 +41,7 @@ module Laster
       tracks
     end
 
+    # Searches for tracks similar to the artist and the song passed as arg
     def self.similar(track, artist)
       params = { method: 'track.getsimilar', artist: artist, track: track,
                  api_key: ENV['LASTFM_API_KEY'], format: 'json' }

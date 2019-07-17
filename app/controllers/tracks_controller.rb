@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 require_relative './api/laster.rb'
+
+# Manages the /track/* paths
 class TracksController < ApplicationController
   # GET /tracks?track=t [opt: artist=a, limit=l]
   def search
