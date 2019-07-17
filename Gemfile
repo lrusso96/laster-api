@@ -14,6 +14,8 @@ gem 'figaro', '~> 1.0'
 
 gem 'json'
 
+gem 'simplecov', require: false, group: :test
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -50,7 +52,6 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'shoulda-matchers'
-
 end
 
 
