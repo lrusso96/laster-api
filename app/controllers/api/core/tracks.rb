@@ -16,15 +16,6 @@ module Laster
       parse_search res
     end
 
-    def self.top_tracks
-      # TODO: implement method
-      tracks = []
-      1.upto 10 do |value|
-        tracks << Track.new(title: "top - #{value}")
-      end
-      tracks
-    end
-
     def self.top
       # TODO: implement method
       tracks = []
