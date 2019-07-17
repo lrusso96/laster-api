@@ -1,4 +1,4 @@
-require_relative './api/core/laster.rb'
+require_relative './api/laster.rb'
 class TracksController < ApplicationController
   # GET /tracks?track=t{artist=a, limit=l}
   def search
