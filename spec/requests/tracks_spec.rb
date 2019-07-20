@@ -1,7 +1,8 @@
-# spec/requests/tracks_spec.rb
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'Laster API', type: :request do
+RSpec.describe 'Laster::Tracks API', type: :request do
   # initialize test data
   let!(:tracks) { create_list(:track, 10) }
   let(:valid_attributes) { { track: 'Wonderwall' } }
@@ -13,7 +14,7 @@ RSpec.describe 'Laster API', type: :request do
     before { get '/tracks/top' }
 
     context 'default case' do
-      it 'returns the top charts (100 songs now!)' do
+      it 'returns the top charts (10 songs now!)' do
         expect(json).not_to be_empty
         # remove this line after the implementation of search function!
         expect(json.size).to eq(10)
