@@ -35,7 +35,7 @@ Finally put the server up with
 ## Tests
 In order to run tests do
 
-  bundle exec rspec spec
+    bundle exec rspec spec
 
 ## Dependencies
 * figaro
