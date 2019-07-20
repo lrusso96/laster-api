@@ -28,6 +28,12 @@ class TracksController < ApplicationController
     tracks_response Laster::Tracks.similar(params[:track], params[:artist])
   end
 
+  # GET /tracks/info?artist=a&track=t
+  def info
+    validate_info_params
+    tracks_response Laster::Tracks.info(params[:track], params[:artist])
+  end
+
   private
 
   def validate_search_params
@@ -38,6 +44,12 @@ class TracksController < ApplicationController
 
   def validate_similar_params
     # simple validation of search similar
+    params.require(%i[artist track])
+    params.permit(%i[artist track])
+  end
+
+  def validate_info_params
+    # simple validation of info
     params.require(%i[artist track])
     params.permit(%i[artist track])
   end

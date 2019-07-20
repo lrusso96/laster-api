@@ -23,7 +23,8 @@ module Laster
       # TODO: implement method
       tracks = []
       1.upto 10 do |value|
-        tracks << Track.new(title: "top - #{value}", artist: "art - #{value}")
+        artist = Artist.new(name: "art - #{value}")
+        tracks << Track.new(title: "top - #{value}", artist: artist)
       end
       tracks
     end

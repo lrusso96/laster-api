@@ -49,6 +49,15 @@ module Laster
       parse_similar JSON.parse Net::HTTP.get_response(uri).body
     end
 
+    # Get infos of a track
+    def self.info(track, artist)
+      params = { method: 'track.getinfo', artist: artist, track: track,
+                 api_key: ENV['LASTFM_API_KEY'], format: 'json' }
+      uri = URI API_ENDPOINT
+      uri.query = URI.encode_www_form params
+      parse_info JSON.parse Net::HTTP.get_response(uri).body
+    end
+
     private_class_method def self.parse_search(res)
       ret = []
       return ret if res['error'] # FIXME: return some error code / msg
@@ -56,7 +65,8 @@ module Laster
       tracks = res['results']['trackmatches']['track']
       tracks.each do |t|
         # FIXME: add more fields!
-        ret << Track.new(title: t['name'], artist: t['artist'])
+        artist = Artist.new(name: t['artist'])
+        ret << Track.new(title: t['name'], artist: artist)
       end
       ret
     end
@@ -68,9 +78,22 @@ module Laster
       tracks = res['similartracks']['track']
       tracks.each do |t|
         # FIXME: add more fields!
-        ret << Track.new(title: t['name'], artist: t['artist']['name'])
+        artist = Artist.new(name: t['artist']['name'])
+        ret << Track.new(title: t['name'], artist: artist)
       end
       ret
+    end
+
+    private_class_method def self.parse_info(res)
+      return nil if res['error'] # FIXME: return some error code / msg
+
+      track = res['track']
+      artist = Artist.new(name: track['artist']['name'])
+      album = track['album']
+      # add image field
+      album_artist = Artist.new(name: album['artist'])
+      album = Album.new(title: album['title'], artist: album_artist)
+      Track.new(title: track['name'], artist: artist, album: album)
     end
   end
 end
