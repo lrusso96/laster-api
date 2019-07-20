@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :track do
     title { Faker::Lorem.word }
-    artist { Faker::Lorem.word }
+    association :artist, factory: :artist
+    association :album, factory: :album
   end
 end
