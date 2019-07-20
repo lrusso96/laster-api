@@ -12,8 +12,10 @@ gem 'puma', '~> 3.11'
 # Use figaro to improve configuration's security of application
 gem 'figaro', '~> 1.0'
 
+# JSON parsing and more
 gem 'json'
 
+# codecov generation and upload
 gem 'codecov', require: false, group: :test
 gem 'simplecov', require: false, group: :test
 
