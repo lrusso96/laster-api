@@ -6,8 +6,40 @@
 [![BCH compliance](https://bettercodehub.com/edge/badge/lrusso96/laster-api?branch=master)](https://bettercodehub.com/)
 [![codecov](https://codecov.io/gh/lrusso96/laster-api/branch/master/graph/badge.svg)](https://codecov.io/gh/lrusso96/laster-api)
 
-## Documentation
-...
+A very simple Rails 6 app that interacts with Last.fm API.
+
+## What is required
+This is a Ruby on Rails project, so first you need to set up Rails
+
+* Rails version
+    6
+
+* Ruby version
+    Ruby 2.6.3
+
+## How to run
+You have to install all gems required. So simply run
+
+    bundle
+
+Then you can run the migrations
+
+    rails db:migrate
+
+Finally put the server up with
+
+    rails s
+
+## How to run tests
+
+  bundle exec rspec spec
+
+## Dependencies
+* figaro
+* json
+* codecov, simplecov
+* ...
 
 ## Contributors
-...
+* [Luigi Russo](https://github.com/lrusso96)
+* [Matteo Salvino](https://github.com/matteosalvino)
