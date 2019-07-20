@@ -7,6 +7,8 @@ RSpec.describe 'Laster::Tracks API', type: :request do
   let!(:tracks) { create_list(:track, 10) }
   let(:valid_attributes) { { track: 'Wonderwall' } }
   let(:invalid_attributes) { { wrong_par: 'Searched Song' } }
+  let(:info_attributes) { { track: 'The wall', artist: 'Pink Floyd' } }
+  let(:invald_info_attributes) { { track: 'The wall' } }
 
   # Test suite for GET /tracks/top
   describe 'GET top songs' do
@@ -72,6 +74,38 @@ RSpec.describe 'Laster::Tracks API', type: :request do
       it 'returns a validation failure message' do
         expect(response.body)
           .to match(/param is missing or the value is empty: track/)
+      end
+    end
+  end
+
+  # Test suite for GET /tracks/info?track=song&artist=a
+  describe 'GET track infos' do
+    # make HTTP get request before each example
+    before { get '/tracks/info', params: info_attributes }
+
+    context 'when both track and artist parameters are present' do
+      it 'returns the result of the search' do
+        # Note `json` is a custom helper to parse JSON responses
+        expect(json).not_to be_empty
+        # FIXME: parse result to see details!
+        expect(json.size).to eq(1)
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'when a required parameter is NOT present' do
+      before { get '/tracks/info', params: invalid_attributes }
+
+      it 'returns status code 400' do
+        expect(response).to have_http_status(400)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body)
+          .to match(/param is missing or the value is empty: artist/)
       end
     end
   end
