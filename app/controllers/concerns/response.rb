@@ -7,7 +7,9 @@ module Response
   end
 
   def tracks_response(tracks, status = :ok)
-    render json: tracks, status: status, root: true, only: %i[title artist]
+    render json: tracks, status: status, root: true, only: :title,
+           include: { artist: { only: :name },
+                      album: { only: %i[title artist] } }
   end
 
   def artists_response(artists, status = :ok)
