@@ -2,7 +2,6 @@
 
 require 'net/http'
 require 'json'
-require 'json'
 module Laster
   # This class interacts with Last.fm Track module
   class Tracks
