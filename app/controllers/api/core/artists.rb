@@ -26,7 +26,7 @@ module Laster
       tracks
     end
 
-    def self.similar
+    def self.similar(artist)
       # TODO: implement method
       artists = []
       1.upto 10 do |value|
