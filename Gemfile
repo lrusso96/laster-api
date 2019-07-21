@@ -15,6 +15,9 @@ gem 'figaro', '~> 1.0'
 # JSON parsing and more
 gem 'json'
 
+# simple http
+gem 'httparty'
+
 # codecov generation and upload
 gem 'codecov', require: false, group: :test
 gem 'simplecov', require: false, group: :test
