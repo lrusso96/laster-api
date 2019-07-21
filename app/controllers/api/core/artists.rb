@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
-require 'net/http'
+require 'httparty'
 require 'json'
 module Laster
   # Interacts with Last.fm Artist module
   class Artists
     def self.search(artist, limit: nil)
-      uri = URI('https://ws.audioscrobbler.com/2.0/?')
       params = { method: 'artist.search', api_key: ENV['LASTFM_API_KEY'],
                  format: 'json' }
       # I don't trust the caller
       args = { artist: artist, limit: limit }.compact
       params.reverse_merge!(args)
 
-      uri.query = URI.encode_www_form(params)
-      parse_search JSON.parse Net::HTTP.get_response(uri).body
+      opt = { query: params, headers: { 'User-Agent' => ENV['USER_AGENT'] } }
+      parse_search JSON.parse HTTParty.get(API_ENDPOINT, opt).body
     end
 
     def self.top_tracks
