@@ -82,7 +82,6 @@ module Laster
       track = res['track']
       artist = Artist.new(name: track['artist']['name'])
       ret = Track.new(title: track['name'], artist: artist)
-      # TODO: add image field
       album = track['album']
       return ret unless album
 

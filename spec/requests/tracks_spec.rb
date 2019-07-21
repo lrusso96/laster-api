@@ -52,7 +52,7 @@ RSpec.describe 'Laster::Tracks.search', type: :request do
 end
 
 RSpec.describe 'Laster::Tracks.info', type: :request do
-  let(:valid_attr) { { track: 'The wall', artist: 'Pink Floyd' } }
+  let(:valid_attr) { { track: 'Hello', artist: 'Adele' } }
   let(:invalid_attr) { { track: 'The wall' } }
 
   context 'when both TRACK and ARTIST parameters are present' do
@@ -84,11 +84,11 @@ RSpec.describe 'Laster::Tracks.info', type: :request do
 end
 
 RSpec.describe 'Laster::Tracks.similar', type: :request do
-  let(:valid_attr) { { track: 'The wall', artist: 'Pink Floyd' } }
-  let(:invalid_attr) { { track: 'The wall' } }
+  let(:valid_attr) { { track: 'Hello', artist: 'Adele' } }
+  let(:invalid_attr) { { track: 'Hello' } }
 
   context 'when both TRACK and ARTIST parameters are present' do
-    before { get '/tracks/info', params: valid_attr }
+    before { get '/tracks/similar', params: valid_attr }
 
     it 'returns the result of the search' do
       expect(json).not_to be_empty
@@ -102,7 +102,7 @@ RSpec.describe 'Laster::Tracks.similar', type: :request do
   end
 
   context 'when a required parameter is NOT present' do
-    before { get '/tracks/info', params: invalid_attr }
+    before { get '/tracks/similar', params: invalid_attr }
 
     it 'returns status code 400' do
       expect(response).to have_http_status(400)
