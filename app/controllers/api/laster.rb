@@ -4,6 +4,7 @@
 module Laster
   require_relative './core/tracks.rb'
   require_relative './core/artists.rb'
+  require_relative './concerns/error.rb'
 
   API_ENDPOINT = 'https://ws.audioscrobbler.com/2.0/?'
 end
