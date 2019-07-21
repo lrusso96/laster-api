@@ -39,15 +39,21 @@ module Laster
     end
 
     private_class_method def self.parse_search(res)
+      catch_error res
       ret = []
-      return ret if res['error'] # FIXME: return some error code / msg
-
       artists = res['results']['artistmatches']['artist']
       artists.each do |a|
         # FIXME: add more fields!
         ret << Artist.new(name: a['name'])
       end
       ret
+    end
+
+    private_class_method def self.catch_error(res)
+      raise Laster::Errors::Simple.new(msg: 'Artists - server error') unless res
+
+      code = res['error']
+      raise Laster::Errors::Simple.new(msg: res['message'], code: code) if code
     end
   end
 end

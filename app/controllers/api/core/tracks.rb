@@ -59,9 +59,9 @@ module Laster
     end
 
     private_class_method def self.parse_search(res)
+      catch_error res
       ret = []
-      return ret if res['error'] # FIXME: return some error code / msg
-
+      # return ret if res['error'] # FIXME: return some error code / msg
       tracks = res['results']['trackmatches']['track']
       tracks.each do |t|
         # FIXME: add more fields!
@@ -72,9 +72,8 @@ module Laster
     end
 
     private_class_method def self.parse_similar(res)
+      catch_error res
       ret = []
-      return ret if res['error'] # FIXME: return some error code / msg
-
       tracks = res['similartracks']['track']
       tracks.each do |t|
         # FIXME: add more fields!
@@ -85,8 +84,7 @@ module Laster
     end
 
     private_class_method def self.parse_info(res)
-      return nil if res['error'] # FIXME: return some error code / msg
-
+      catch_error res
       track = res['track']
       artist = Artist.new(name: track['artist']['name'])
       ret = Track.new(title: track['name'], artist: artist)
@@ -98,6 +96,13 @@ module Laster
       album = Album.new(title: album['title'], artist: album_artist)
       ret.album = album
       ret
+    end
+
+    private_class_method def self.catch_error(res)
+      raise Laster::Errors::Simple.new(msg: 'Tracks - server error') unless res
+
+      code = res['error']
+      raise Laster::Errors::Simple.new(msg: res['message'], code: code) if code
     end
   end
 end
