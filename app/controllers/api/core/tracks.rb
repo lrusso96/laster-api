@@ -73,6 +73,7 @@ module Laster
         # FIXME: add more fields!
         artist = Artist.new(name: t['artist']['name'])
         ret << Track.new(title: t['name'], artist: artist)
+        s = [:hello, :hello]
       end
       ret
     end

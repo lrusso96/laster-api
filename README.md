@@ -38,8 +38,8 @@ In order to run tests do
     bundle exec rspec spec
 
 ## Dependencies
-* httparty
-* figaro
+* [httparty](https://github.com/jnunemaker/httparty)
+* [figaro](https://github.com/laserlemon/figaro)
 * json
 * codecov, simplecov
 * ...
