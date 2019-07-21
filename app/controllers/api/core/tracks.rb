@@ -15,8 +15,6 @@ module Laster
 
       uri = URI API_ENDPOINT
       uri.query = URI.encode_www_form params
-      # #FIXME: error handling is completely ignored
-      # parse result and return List<Track>
       parse_search JSON.parse Net::HTTP.get_response(uri).body
     end
 
@@ -61,7 +59,6 @@ module Laster
     private_class_method def self.parse_search(res)
       catch_error res
       ret = []
-      # return ret if res['error'] # FIXME: return some error code / msg
       tracks = res['results']['trackmatches']['track']
       tracks.each do |t|
         # FIXME: add more fields!
@@ -88,7 +85,7 @@ module Laster
       track = res['track']
       artist = Artist.new(name: track['artist']['name'])
       ret = Track.new(title: track['name'], artist: artist)
-      # add image field
+      # TODO: add image field
       album = track['album']
       return ret unless album
 

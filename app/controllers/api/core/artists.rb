@@ -14,8 +14,6 @@ module Laster
       params.reverse_merge!(args)
 
       uri.query = URI.encode_www_form(params)
-      # TODO: implement method
-      # #FIXME: error handling is completely ignored
       parse_search JSON.parse Net::HTTP.get_response(uri).body
     end
 
