@@ -8,8 +8,15 @@ module Response
 
   def tracks_response(tracks, status = :ok)
     render json: tracks, status: status, root: true, only: :title,
-           include: { artist: { only: :name },
-                      album: { only: %i[title artist] } }
+           include: {
+             artist: { only: :name },
+             album: {
+               only: %i[title artist],
+               include: {
+                 images: { only: %i[size url] }
+               }
+             }
+           }
   end
 
   def artists_response(artists, status = :ok)

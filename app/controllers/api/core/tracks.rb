@@ -87,7 +87,12 @@ module Laster
       return ret unless album
 
       album_artist = Artist.new(name: album['artist'])
-      album = Album.new(title: album['title'], artist: album_artist)
+      images = album['image']
+      album_images = []
+      images.each do |img|
+        album_images << Image.new(size: img['size'], url: img['#text'])
+      end
+      album = Album.new(title: album['title'], artist: album_artist, images: album_images)
       ret.album = album
       ret
     end
