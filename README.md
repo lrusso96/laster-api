@@ -39,7 +39,7 @@ In order to run tests do
 * [httparty](https://github.com/jnunemaker/httparty)
 * [figaro](https://github.com/laserlemon/figaro)
 * json
-* codecov, simplecov
+* simplecov
 * ...
 
 ## Contributors
