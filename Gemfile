@@ -18,7 +18,6 @@ gem 'json'
 gem 'httparty'
 
 # codecov generation and upload
-gem 'codecov', require: false, group: :test
 gem 'simplecov', require: false, group: :test
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
