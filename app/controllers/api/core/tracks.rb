@@ -6,7 +6,7 @@ module Laster
   class Tracks
     # Searches for tracks given a query and possibly an artist
     def self.search(track, artist: nil, limit: nil)
-      args = { track: track, artist: artist, limit: limit }.compact
+      args = { track: track, artist: artist, limit: limit }
       parse_search Party.new(args).search_track
     end
 
@@ -32,13 +32,13 @@ module Laster
 
     # Searches for tracks similar to the artist and the song passed as arg
     def self.similar(track, artist)
-      args = {track: track, artist: artist}
+      args = { track: track, artist: artist }
       parse_similar Party.new(args).similar_tracks
     end
 
     # Get infos of a track
     def self.info(track, artist)
-      args = {track: track, artist: artist}
+      args = { track: track, artist: artist }
       parse_info Party.new(args).info_track
     end
 

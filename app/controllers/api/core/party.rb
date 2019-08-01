@@ -12,8 +12,9 @@ module Laster
     attr_reader :headers
     attr_reader :options
 
+    # @param [Hash] args
     def initialize(args)
-      @args = args
+      @args = args.compact
       @headers = { 'User-Agent' => ENV['USER_AGENT'] }
     end
 

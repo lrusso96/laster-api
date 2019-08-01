@@ -5,7 +5,7 @@ module Laster
   # Interacts with Last.fm Artist module
   class Artists
     def self.search(artist, limit: nil)
-      args = { artist: artist, limit: limit }.compact
+      args = { artist: artist, limit: limit }
       parse_search Party.new(args).search_artist
     end
 
@@ -20,7 +20,7 @@ module Laster
     end
 
     def self.similar(artist, limit: nil)
-      args = { artist: artist, limit: limit }.compact
+      args = { artist: artist, limit: limit }
       parse_similar Party.new(args).similar_artists
     end
 
