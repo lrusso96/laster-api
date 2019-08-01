@@ -1,20 +1,13 @@
 # frozen_string_literal: true
 
-require 'httparty'
 require 'json'
 module Laster
   # This class interacts with Last.fm Track module
   class Tracks
     # Searches for tracks given a query and possibly an artist
     def self.search(track, artist: nil, limit: nil)
-      params = { method: 'track.search', api_key: ENV['LASTFM_API_KEY'],
-                 format: 'json' }
-      # I don't trust the caller
       args = { track: track, artist: artist, limit: limit }.compact
-      params.reverse_merge!(args)
-
-      opt = { query: params, headers: { 'User-Agent' => ENV['USER_AGENT'] } }
-      parse_search JSON.parse HTTParty.get(API_ENDPOINT, opt).body
+      parse_search Party.new(args).search_track
     end
 
     # Searches for top tracks
@@ -39,18 +32,14 @@ module Laster
 
     # Searches for tracks similar to the artist and the song passed as arg
     def self.similar(track, artist)
-      params = { method: 'track.getsimilar', artist: artist, track: track,
-                 api_key: ENV['LASTFM_API_KEY'], format: 'json' }
-      opt = { query: params, headers: { 'User-Agent' => ENV['USER_AGENT'] } }
-      parse_similar JSON.parse HTTParty.get(API_ENDPOINT, opt).body
+      args = {track: track, artist: artist}
+      parse_similar Party.new(args).similar_tracks
     end
 
     # Get infos of a track
     def self.info(track, artist)
-      params = { method: 'track.getinfo', artist: artist, track: track,
-                 api_key: ENV['LASTFM_API_KEY'], format: 'json' }
-      opt = { query: params, headers: { 'User-Agent' => ENV['USER_AGENT'] } }
-      parse_info JSON.parse HTTParty.get(API_ENDPOINT, opt).body
+      args = {track: track, artist: artist}
+      parse_info Party.new(args).info_track
     end
 
     private_class_method def self.parse_search(res)

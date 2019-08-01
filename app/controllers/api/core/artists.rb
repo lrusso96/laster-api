@@ -1,19 +1,12 @@
 # frozen_string_literal: true
 
-require 'httparty'
 require 'json'
 module Laster
   # Interacts with Last.fm Artist module
   class Artists
     def self.search(artist, limit: nil)
-      params = { method: 'artist.search', api_key: ENV['LASTFM_API_KEY'],
-                 format: 'json' }
-      # I don't trust the caller
       args = { artist: artist, limit: limit }.compact
-      params.reverse_merge!(args)
-
-      opt = { query: params, headers: { 'User-Agent' => ENV['USER_AGENT'] } }
-      parse_search JSON.parse HTTParty.get(API_ENDPOINT, opt).body
+      parse_search Party.new(args).search_artist
     end
 
     def self.top_tracks
@@ -27,14 +20,8 @@ module Laster
     end
 
     def self.similar(artist, limit: nil)
-      params = { method: 'artist.getsimilar', api_key: ENV['LASTFM_API_KEY'],
-                 format: 'json' }
-      # I don't trust the caller
       args = { artist: artist, limit: limit }.compact
-      params.reverse_merge!(args)
-
-      opt = { query: params, headers: { 'User-Agent' => ENV['USER_AGENT'] } }
-      parse_similar JSON.parse HTTParty.get(API_ENDPOINT, opt).body
+      parse_similar Party.new(args).similar_artists
     end
 
     private_class_method def self.parse_search(res)
