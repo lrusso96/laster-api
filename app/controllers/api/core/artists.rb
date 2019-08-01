@@ -56,13 +56,13 @@ module Laster
     end
 
     private_class_method def self.parse_similar(res)
-     catch_error res
-     ret = []
-     artists = res['similarartists']['artist']
-     artists.each do |a|
-       ret << Artist.new(name: a['name'])
-     end
-     ret
-   end
+      catch_error res
+      ret = []
+      artists = res['similarartists']['artist']
+      artists.each do |a|
+        ret << Artist.new(name: a['name'])
+      end
+      ret
+    end
   end
 end

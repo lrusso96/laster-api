@@ -85,15 +85,19 @@ module Laster
       album = track['album']
       return ret unless album
 
+      ret.album = extract_album album
+      ret
+    end
+
+    private_class_method def self.extract_album(album)
       album_artist = Artist.new(name: album['artist'])
       images = album['image']
       album_images = []
       images.each do |img|
         album_images << Image.new(size: img['size'], url: img['#text'])
       end
-      album = Album.new(title: album['title'], artist: album_artist, images: album_images)
-      ret.album = album
-      ret
+      Album.new(title: album['title'], artist: album_artist,
+                images: album_images)
     end
 
     private_class_method def self.catch_error(res)
