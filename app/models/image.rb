@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# class that models an image
 class Image < ApplicationRecord
   belongs_to :album
 
