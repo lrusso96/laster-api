@@ -127,11 +127,11 @@ GEM
     multipart-post (2.1.1)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
-    nio4r (2.4.0)
+    nio4r (2.5.1)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     pg (1.1.4)
-    puma (4.1.0)
+    puma (4.1.1)
       nio4r (~> 2.0)
     pusher-client (0.6.2)
       json
