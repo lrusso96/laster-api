@@ -9,7 +9,7 @@ ruby '2.6.3'
 gem 'rails', '~> 6.0.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 4.2'
 # Use figaro to improve configuration's security of application
 gem 'figaro', '~> 1.0'
 
